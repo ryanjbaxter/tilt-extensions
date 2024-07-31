@@ -66,14 +66,10 @@ items:
                 - name: SPRING_PROFILES_INCLUDE
                   value: "kubernetes,git"
               readinessProbe:
-                initialDelaySeconds: 30
-                periodSeconds: 30
                 httpGet:
                   port: 8888
                   path: /actuator/health/readiness
               livenessProbe:
-                initialDelaySeconds: 30
-                periodSeconds: 30
                 httpGet:
                   port: 8888
                   path: /actuator/health/liveness
