@@ -1,0 +1,12 @@
+load('ext://deployment', 'deployment_create')
+load('ext://configmap', 'configmap_create')
+
+def config_server_deployment(kubernetesConfigServerYamlPath):
+    objects=['spring-cloud-kubernetes-configserver:ServiceAccount', 'spring-cloud-kubernetes-configserver\\:view:RoleBinding', 'namespace-reader:Role']
+    if kubernetesConfigServerYamlPath:
+    	configmap_create('kubernetesconfigserver', from_file=['application.yaml=' + kubernetesConfigServerYamlPath])
+    	objects.append('kubernetesconfigserver:ConfigMap')
+
+	k8s_yaml('k8s/spring-cloud-k8s/configserver/configserver.yaml')
+	k8s_resource('spring-cloud-kubernetes-configserver-deployment', port_forwards=['8888:8888'], objects=objects)
+
