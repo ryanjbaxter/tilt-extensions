@@ -1,0 +1,6 @@
+v1alpha1.extension(name='live-reload', repo_name='tilt-extensions', repo_path='live-reload')
+v1alpha1.extension(name='spring-cloud-k8s-configserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-configserver')
+v1alpha1.extension(name='spring-cloud-k8s-discoveryserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-discoveryserver')
+load('ext://live-reload', 'modify_jkube_kubernetes_yaml_for_livereload')
+load('ext://spring-cloud-k8s-configserver', 'config_server_deployment')
+load('ext://spring-cloud-k8s-discoveryserver', 'discovery_server_deployment')
