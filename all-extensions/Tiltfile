@@ -6,3 +6,4 @@ load('ext://spring-cloud-k8s-configserver', 'config_server_deployment')
 load('ext://spring-cloud-k8s-discoveryserver', 'discovery_server_deployment')
 
 def all_extensions():
+	
