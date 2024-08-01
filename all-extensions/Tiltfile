@@ -9,4 +9,6 @@ load('ext://mysql', 'add_service_binding')
 load('ext://mysql', 'create_mysql_resource')
 
 def all_extensions():
+    load('ext://mysql', 'add_service_binding')
+    load('ext://mysql', 'create_mysql_resource')
 	return
