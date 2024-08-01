@@ -2,11 +2,14 @@ v1alpha1.extension(name='live-reload', repo_name='tilt-extensions', repo_path='l
 v1alpha1.extension(name='spring-cloud-k8s-configserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-configserver')
 v1alpha1.extension(name='spring-cloud-k8s-discoveryserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-discoveryserver')
 v1alpha1.extension(name='mysql', repo_name='tilt-extensions', repo_path='mysql')
-load('ext://live-reload', 'modify_jkube_kubernetes_yaml_for_livereload')
-load('ext://spring-cloud-k8s-configserver', 'config_server_deployment')
-load('ext://spring-cloud-k8s-discoveryserver', 'discovery_server_deployment')
-load('ext://mysql', 'add_service_binding')
-load('ext://mysql', 'create_mysql_resource')
+jkube = load_dynamic('ext://live-reload')
+configserver = load_dynamic('ext://spring-cloud-k8s-configserver')
+discoveryserver = load_dynamic('ext://spring-cloud-k8s-discoveryserver')
+mysql = load_dynamic('ext://mysql')
+configmap = load_dynamic('ext://configmap')
 
-def all_extensions():
-	return
+def configmap_create(name, namespace="", from_file=None, watch=True, from_env_file=None):
+	return configmap.configmap_create(name, namespace, from_file, watch, from_env_file)
+
+def configmap_from_dict(name, namespace="", inputs={}):
+	return configmap.configmap_from_dict(name, namespace, inputs)
