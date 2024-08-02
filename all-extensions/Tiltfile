@@ -11,7 +11,7 @@ print(configmap)
 print(mysql)
 
 def configmap_create(name, namespace="", from_file=None, watch=True, from_env_file=None):
-	return configmap.configmap_create(name, namespace, from_file, watch, from_env_file)
+	return configmap['configmap_create'](name, namespace, from_file, watch, from_env_file)
 
 def configmap_from_dict(name, namespace="", inputs={}):
-	return configmap.configmap_from_dict(name, namespace, inputs)
+	return configmap['configmap_from_dict'](name, namespace, inputs)
