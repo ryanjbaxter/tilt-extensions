@@ -10,7 +10,7 @@ def add_volume_to_deployment(deployment):
 	volumes = deployment['spec']['template']['spec'].get('volumes')
 	if not volumes:
 		volumes = []
-	volumes.append({"name": "mysql", "secret": {"secretName": "mysql-svcbind-custom-user"}})
+	volumes.append({"name": "mysql", "secret": {"secretName": "mysql-svcbind-root"}})
 	deployment['spec']['template']['spec']['volumes'] = volumes
 	container = deployment['spec']['template']['spec']['containers'][0]
 	deployment['spec']['template']['spec']['containers'][0] = mount_volume_to_container(container)
