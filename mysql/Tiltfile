@@ -2,7 +2,7 @@ load('ext://helm_resource', 'helm_resource', 'helm_repo')
 helm_repo('bitnami', 'https://charts.bitnami.com/bitnami')
 
 def create_mysql_resource(db_name):
-	helm_resource('mysql', 'bitnami/mysql', resource_deps=['bitnami'], flags=['--set=serviceBindings.enabled=true', '--set=auth.database=' + db_name, '--set=auth.username=frustration', '--set=auth.password=p@ssw0rd'])
+	helm_resource('mysql', 'bitnami/mysql', resource_deps=['bitnami'], flags=['--set=serviceBindings.enabled=true', '--set=auth.database=' + db_name])
 	k8s_resource(workload='mysql', port_forwards=3306)
 
 
