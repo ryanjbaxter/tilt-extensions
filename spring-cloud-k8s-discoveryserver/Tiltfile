@@ -1,7 +1,6 @@
 # This gets the directory where the extension is located locally
 home = os.getcwd()
 def discovery_server_deployment():
-        print(home)
 	objects=['spring-cloud-kubernetes-discoveryserver:ServiceAccount', 'spring-cloud-kubernetes-discoveryserver\\:view:RoleBinding', 'namespace-reader-discoveryserver:Role']
 	k8s_yaml(os.path.join(home, 'discoveryserver.yaml'))
 	k8s_resource('spring-cloud-kubernetes-discoveryserver-deployment', port_forwards=['8761:8761'], objects=objects)
