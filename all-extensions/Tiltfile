@@ -2,11 +2,13 @@ v1alpha1.extension(name='live-reload', repo_name='tilt-extensions', repo_path='l
 v1alpha1.extension(name='spring-cloud-k8s-configserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-configserver')
 v1alpha1.extension(name='spring-cloud-k8s-discoveryserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-discoveryserver')
 v1alpha1.extension(name='mysql', repo_name='tilt-extensions', repo_path='mysql')
+v1alpha1.extension(name='remote-debug', repo_name='tilt-extensions', repo_path='bp-remote-debug')
 jkube = load_dynamic('ext://live-reload')
 configserver = load_dynamic('ext://spring-cloud-k8s-configserver')
 discoveryserver = load_dynamic('ext://spring-cloud-k8s-discoveryserver')
 mysql = load_dynamic('ext://mysql')
 configmap = load_dynamic('ext://configmap')
+remote_debug = load_dynamic('ext://remote-debug')
 
 def configmap_create(name, namespace="", from_file=None, watch=True, from_env_file=None):
 	return configmap['configmap_create'](name, namespace, from_file, watch, from_env_file)
@@ -28,3 +30,6 @@ def config_server_deployment(kubernetesConfigServerYamlPath):
 
 def discovery_server_deployment():
 	return discoveryserver['discovery_server_deployment']()
+
+def modify_jkube_kubernetes_yaml_for_remote_debug(kube_yaml_path):
+	return remote_debug['modify_jkube_kubernetes_yaml_for_remote_debug'](kube_yaml_path)
