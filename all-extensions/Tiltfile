@@ -33,3 +33,6 @@ def discovery_server_deployment():
 
 def modify_jkube_kubernetes_yaml_for_remote_debug(kube_yaml_path):
 	return remote_debug['modify_jkube_kubernetes_yaml_for_remote_debug'](kube_yaml_path)
+
+def modify_jkube_kubernetes_yaml_for_livereload_blob(kube_yaml_blob):
+	return jkube['modify_jkube_kubernetes_yaml_for_livereload_blob'](kube_yaml_blob)

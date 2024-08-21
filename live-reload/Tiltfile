@@ -4,7 +4,10 @@ def modify_deployment_for_livereload(deployment):
 	container['securityContext']['runAsUser'] = 1001
 
 def modify_jkube_kubernetes_yaml_for_livereload(kube_yaml_path):
-	resources = decode_yaml_stream(str(local(kube_yaml_path)))
+	return modify_jkube_kubernetes_yaml_for_livereload_blob(local(kube_yaml_path))
+
+def modify_jkube_kubernetes_yaml_for_livereload_blob(kube_yaml_blob):
+	resources = decode_yaml_stream(str(kube_yaml_blob))
 	items = resources.pop()['items']
 	deployment = items.pop()
 	modify_deployment_for_livereload(deployment)
