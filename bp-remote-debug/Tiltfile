@@ -3,7 +3,7 @@ def modify_deployment_for_remote_debug(deployment, port):
 	env = container['env']
 	ports = container['ports']
 	env.append({"name": "BPL_DEBUG_ENABLED", "value": "true"})
-	env.append({"name": "BPL_DEBUG_PORT", "value": port})
+	env.append({"name": "BPL_DEBUG_PORT", "value": str(port)})
 	ports.append({"containerPort": port, "name": "debug"})
 
 def modify_jkube_kubernetes_yaml_for_remote_debug(kube_yaml_path, port=5005):
