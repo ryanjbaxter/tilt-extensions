@@ -1,14 +1,16 @@
-def modify_deployment_for_remote_debug(deployment):
+def modify_deployment_for_remote_debug(deployment, port):
 	container = deployment['spec']['template']['spec']['containers'][0]
 	env = container['env']
+	ports = container['ports']
 	env.append({"name": "BPL_DEBUG_ENABLED", "value": "true"})
-	env.append({"name": "BPL_DEBUG_PORT", "value": "5005"})
+	env.append({"name": "BPL_DEBUG_PORT", "value": port})
+	ports.append({"containerPort": port, "name": "debug"})
 
-def modify_jkube_kubernetes_yaml_for_remote_debug(kube_yaml_path):
+def modify_jkube_kubernetes_yaml_for_remote_debug(kube_yaml_path, port=5005):
 	resources = decode_yaml_stream(str(local(kube_yaml_path)))
 	items = resources.pop()['items']
 	deployment = items.pop()
-	modify_deployment_for_remote_debug(deployment)
+	modify_deployment_for_remote_debug(deployment, port)
 	items.append(deployment)
 	resources.append({"apiVersion": "v1", "items": items, "kind": "List"})
 	return encode_yaml_stream(resources)
