@@ -9,6 +9,7 @@ discoveryserver = load_dynamic('ext://spring-cloud-k8s-discoveryserver')
 mysql = load_dynamic('ext://mysql')
 configmap = load_dynamic('ext://configmap')
 remote_debug = load_dynamic('ext://remote-debug')
+volumes = load_dynamic('ext://volumes')
 
 def configmap_create(name, namespace="", from_file=None, watch=True, from_env_file=None):
 	return configmap['configmap_create'](name, namespace, from_file, watch, from_env_file)
@@ -36,3 +37,6 @@ def modify_jkube_kubernetes_yaml_for_remote_debug_blob(kube_yaml_blob, port=5005
 
 def modify_jkube_kubernetes_yaml_for_livereload_blob(kube_yaml_blob):
 	return jkube['modify_jkube_kubernetes_yaml_for_livereload_blob'](kube_yaml_blob)
+
+def add_configmap_volume_to_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, configmap_name):
+	return volumes['add_configmap_volume_to_jkube_kubernetes_yaml'](kube_yaml_blob, volume_name, configmap_name)
