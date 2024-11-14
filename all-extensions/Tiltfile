@@ -3,6 +3,7 @@ v1alpha1.extension(name='spring-cloud-k8s-configserver', repo_name='tilt-extensi
 v1alpha1.extension(name='spring-cloud-k8s-discoveryserver', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-discoveryserver')
 v1alpha1.extension(name='mysql', repo_name='tilt-extensions', repo_path='mysql')
 v1alpha1.extension(name='remote-debug', repo_name='tilt-extensions', repo_path='bp-remote-debug')
+v1alpha1.extension(name='volumes', repo_name='tilt-extensions', repo_path='volumes')
 jkube = load_dynamic('ext://live-reload')
 configserver = load_dynamic('ext://spring-cloud-k8s-configserver')
 discoveryserver = load_dynamic('ext://spring-cloud-k8s-discoveryserver')
