@@ -1,0 +1,17 @@
+def add_configmap_volume_to_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, configmap_name):
+	resources = decode_yaml_stream(str(kube_yaml_blob))
+	items = resources.pop()['items']
+	deployment = items.pop()
+	add_volume_to_deployment(deployment, volume_name, configmap_name)
+	items.append(deployment)
+	resources.append({"apiVersion": "v1", "items": items, "kind": "List"})
+	return encode_yaml_stream(resources)
+
+def add_volume_to_deployment(deployment, volume_name, configmap_name):
+	volumes = deployment['spec']['template']['spec'].get('volumes')
+	if not volumes:
+		volumes = []
+	volumes.append({"name": , volume_name: {"secretName": configmap_name}})
+	deployment['spec']['template']['spec']['volumes'] = volumes
+	print(deployment)
+	return deployment
