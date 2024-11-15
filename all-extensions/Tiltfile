@@ -41,3 +41,6 @@ def modify_jkube_kubernetes_yaml_for_livereload_blob(kube_yaml_blob):
 
 def add_configmap_volume_to_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, configmap_name):
 	return volumes['add_configmap_volume_to_jkube_kubernetes_yaml'](kube_yaml_blob, volume_name, configmap_name)
+
+def add_volume_to_container_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, mount_path):
+	return volumes['add_volume_to_container_jkube_kubernetes_yaml'](kube_yaml_blob, volume_name, mount_path)

@@ -15,3 +15,21 @@ def add_volume_to_deployment(deployment, volume_name, configmap_name):
 	deployment['spec']['template']['spec']['volumes'] = volumes
 	print(deployment)
 	return deployment
+
+def add_volume_to_container_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, mount_path):
+	resources = decode_yaml_stream(str(kube_yaml_blob))
+	items = resources.pop()['items']
+	deployment = items.pop()
+	mount_volume_to_container_in_deployment(deployment, volume_name, mount_path)
+	items.append(deployment)
+	resources.append({"apiVersion": "v1", "items": items, "kind": "List"})
+	return encode_yaml_stream(resources)
+
+def mount_volume_to_container_in_deployment(deployment, volume_name, mount_path):
+    container = deployment['spec']['template']['spec']['containers'][0]
+	volume_mounts = container.get('volumeMounts')
+	if not volume_mounts:
+		volume_mounts = []
+	volume_mounts.append({"mountPath": mount_path, "name": name, "readOnly": True})
+	container['volumeMounts'] = volume_mounts
+	return container
