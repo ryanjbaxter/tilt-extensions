@@ -11,7 +11,7 @@ def add_volume_to_deployment(deployment, volume_name, configmap_name):
 	volumes = deployment['spec']['template']['spec'].get('volumes')
 	if not volumes:
 		volumes = []
-	volumes.append({"name": volume_name, "configMap": {"secretName": configmap_name}})
+	volumes.append({"name": volume_name, "configMap": {"name": configmap_name}})
 	deployment['spec']['template']['spec']['volumes'] = volumes
 	print(deployment)
 	return deployment
