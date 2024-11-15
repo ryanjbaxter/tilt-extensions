@@ -51,4 +51,4 @@ def create_rabbitmq_resource():
 	return rabbitmq['create_rabbitmq_resource']()
 
 def add_rabbitmq_service_binding(yaml_stream):
-	return mysql['add_service_binding'](yaml_stream)
+	return mysql['add_rabbitmq_service_binding'](yaml_stream)
