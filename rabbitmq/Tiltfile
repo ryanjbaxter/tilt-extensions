@@ -6,18 +6,18 @@ def create_rabbitmq_resource():
 	k8s_resource(workload='rabbit')
 
 
-def add_volume_to_deployment(deployment):
+def add_rabbitmq_volume_to_deployment(deployment):
 	volumes = deployment['spec']['template']['spec'].get('volumes')
 	if not volumes:
 		volumes = []
 	volumes.append({"name": "rabbitmq", "secret": {"secretName": "rabbit-rabbitmq-svcbind"}})
 	deployment['spec']['template']['spec']['volumes'] = volumes
 	container = deployment['spec']['template']['spec']['containers'][0]
-	deployment['spec']['template']['spec']['containers'][0] = mount_volume_to_container(container)
+	deployment['spec']['template']['spec']['containers'][0] = mount_rabbitmq_volume_to_container(container)
 	print(deployment)
 	return deployment
 
-def mount_volume_to_container(container):
+def mount_rabbitmq_volume_to_container(container):
 	volume_mounts = container.get('volumeMounts')
 	if not volume_mounts:
 		volume_mounts = []
@@ -29,7 +29,7 @@ def add_rabbitmq_service_binding(yaml_stream):
 	resources = decode_yaml_stream(yaml_stream)
 	items = resources.pop()['items']
 	deployment = items.pop()
-	deployment = add_volume_to_deployment(deployment)
+	deployment = add_rabbitmq_volume_to_deployment(deployment)
 	items.append(deployment)
 	resources.append({"apiVersion": "v1", "items": items, "kind": "List"})
 	return encode_yaml_stream(resources)
