@@ -28,8 +28,8 @@ def add_volume_to_container_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, m
 def mount_volume_to_container_in_deployment(deployment, volume_name, mount_path):
     container = deployment['spec']['template']['spec']['containers'][0]
     volume_mounts = container.get('volumeMounts')
-	if not volume_mounts:
-		volume_mounts = []
-	volume_mounts.append({"mountPath": mount_path, "name": name, "readOnly": True})
-	container['volumeMounts'] = volume_mounts
-	return container
+    if not volume_mounts:
+    	volume_mounts = []
+    volume_mounts.append({"mountPath": mount_path, "name": name, "readOnly": True})
+    container['volumeMounts'] = volume_mounts
+    return container
