@@ -10,7 +10,7 @@ def add_volume_to_deployment(deployment):
 	volumes = deployment['spec']['template']['spec'].get('volumes')
 	if not volumes:
 		volumes = []
-	volumes.append({"name": "mysql", "secret": {"secretName": "mysql-svcbind-root"}})
+	volumes.append({"name": "rabbitmq", "secret": {"secretName": "rabbit-rabbitmq-svcbind-root"}})
 	deployment['spec']['template']['spec']['volumes'] = volumes
 	container = deployment['spec']['template']['spec']['containers'][0]
 	deployment['spec']['template']['spec']['containers'][0] = mount_volume_to_container(container)
@@ -21,7 +21,7 @@ def mount_volume_to_container(container):
 	volume_mounts = container.get('volumeMounts')
 	if not volume_mounts:
 		volume_mounts = []
-	volume_mounts.append({"mountPath": "/var/svcbind/mysql", "name": "mysql", "readOnly": True})
+	volume_mounts.append({"mountPath": "/var/svcbind/rabbitmq", "name": "rabbitmnq", "readOnly": True})
 	container['volumeMounts'] = volume_mounts
 	return container
 
