@@ -50,5 +50,5 @@ def add_volume_to_container_jkube_kubernetes_yaml(kube_yaml_blob, volume_name, m
 def create_rabbitmq_resource():
 	return rabbitmq['create_rabbitmq_resource']()
 
-def add_service_binding(yaml_stream):
+def add_rabbitmq_service_binding(yaml_stream):
 	return mysql['add_service_binding'](yaml_stream)

@@ -25,7 +25,7 @@ def mount_volume_to_container(container):
 	container['volumeMounts'] = volume_mounts
 	return container
 
-def add_service_binding(yaml_stream):
+def add_rabbitmq_service_binding(yaml_stream):
 	resources = decode_yaml_stream(yaml_stream)
 	items = resources.pop()['items']
 	deployment = items.pop()
