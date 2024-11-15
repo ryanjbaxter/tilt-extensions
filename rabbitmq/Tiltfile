@@ -1,5 +1,5 @@
 load('ext://helm_resource', 'helm_resource', 'helm_repo')
-helm_repo('bitnami', 'https://charts.bitnami.com/bitnami')
+helm_repo('bitnami_rabbitmq', 'https://charts.bitnami.com/bitnami')
 
 def create_rabbitmq_resource():
 	helm_resource('rabbitmq', 'bitnami/mysql', resource_deps=['bitnami'], flags=['--set=serviceBindings.enabled=true'])
