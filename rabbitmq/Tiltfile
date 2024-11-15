@@ -21,7 +21,7 @@ def mount_rabbitmq_volume_to_container(container):
 	volume_mounts = container.get('volumeMounts')
 	if not volume_mounts:
 		volume_mounts = []
-	volume_mounts.append({"mountPath": "/var/svcbind/rabbitmq", "name": "rabbitmnq", "readOnly": True})
+	volume_mounts.append({"mountPath": "/var/svcbind/rabbitmq", "name": "rabbitmq", "readOnly": True})
 	container['volumeMounts'] = volume_mounts
 	return container
 
