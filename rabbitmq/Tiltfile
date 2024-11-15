@@ -1,0 +1,35 @@
+load('ext://helm_resource', 'helm_resource', 'helm_repo')
+helm_repo('bitnami', 'https://charts.bitnami.com/bitnami')
+
+def create_rabbitmq_resource():
+	helm_resource('rabbitmq', 'bitnami/mysql', resource_deps=['bitnami'], flags=['--set=serviceBindings.enabled=true'])
+	k8s_resource(workload='rabbitmq')
+
+
+def add_volume_to_deployment(deployment):
+	volumes = deployment['spec']['template']['spec'].get('volumes')
+	if not volumes:
+		volumes = []
+	volumes.append({"name": "mysql", "secret": {"secretName": "mysql-svcbind-root"}})
+	deployment['spec']['template']['spec']['volumes'] = volumes
+	container = deployment['spec']['template']['spec']['containers'][0]
+	deployment['spec']['template']['spec']['containers'][0] = mount_volume_to_container(container)
+	print(deployment)
+	return deployment
+
+def mount_volume_to_container(container):
+	volume_mounts = container.get('volumeMounts')
+	if not volume_mounts:
+		volume_mounts = []
+	volume_mounts.append({"mountPath": "/var/svcbind/mysql", "name": "mysql", "readOnly": True})
+	container['volumeMounts'] = volume_mounts
+	return container
+
+def add_service_binding(yaml_stream):
+	resources = decode_yaml_stream(yaml_stream)
+	items = resources.pop()['items']
+	deployment = items.pop()
+	deployment = add_volume_to_deployment(deployment)
+	items.append(deployment)
+	resources.append({"apiVersion": "v1", "items": items, "kind": "List"})
+	return encode_yaml_stream(resources)
