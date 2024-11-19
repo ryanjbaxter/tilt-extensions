@@ -55,5 +55,5 @@ def create_rabbitmq_resource():
 def add_rabbitmq_service_binding(yaml_stream):
 	return rabbitmq['add_rabbitmq_service_binding'](yaml_stream)
 
-def config_watcher_deployment():
-	return configwatcher['config_watcher_deployment']()
+def config_watcher_deployment(kubernetesConfigWatcherYamlPath):
+	return configwatcher['config_watcher_deployment'](kubernetesConfigWatcherYamlPath)

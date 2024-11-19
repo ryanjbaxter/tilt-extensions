@@ -1,7 +1,10 @@
 # This gets the directory where the extension is located locally
 home = os.getcwd()
-def config_watcher_deployment():
+def config_watcher_deployment(kubernetesConfigWatcherYamlPath):
 	objects=['spring-cloud-kubernetes-configuration-watcher:ServiceAccount', 'spring-cloud-kubernetes-configwatcher\\:view:RoleBinding', 'namespace-reader-configwatcher:Role']
+	if kubernetesConfigWatcherYamlPath:
+        	configmap_create('spring-cloud-kubernetes-configuration-watcher', from_file=['application.yaml=' + kubernetesConfigWatcherYamlPath])
+        	objects.append('spring-cloud-kubernetes-configuration-watcher:ConfigMap')
 	k8s_yaml(os.path.join(home, 'configwatcher.yaml'))
 	k8s_resource('spring-cloud-kubernetes-configuration-watcher-deployment', port_forwards=['8888:8888'], objects=objects)
 
