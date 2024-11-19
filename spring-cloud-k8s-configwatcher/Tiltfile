@@ -1,3 +1,4 @@
+load('ext://configmap', 'configmap_create')
 # This gets the directory where the extension is located locally
 home = os.getcwd()
 def config_watcher_deployment(kubernetesConfigWatcherYamlPath):
