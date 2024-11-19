@@ -5,6 +5,7 @@ v1alpha1.extension(name='mysql', repo_name='tilt-extensions', repo_path='mysql')
 v1alpha1.extension(name='remote-debug', repo_name='tilt-extensions', repo_path='bp-remote-debug')
 v1alpha1.extension(name='volumes', repo_name='tilt-extensions', repo_path='volumes')
 v1alpha1.extension(name='rabbitmq', repo_name='tilt-extensions', repo_path='rabbitmq')
+v1alpha1.extension(name='spring-cloud-k8s-configwatcher', repo_name='tilt-extensions', repo_path='spring-cloud-k8s-configwatcher')
 jkube = load_dynamic('ext://live-reload')
 configserver = load_dynamic('ext://spring-cloud-k8s-configserver')
 discoveryserver = load_dynamic('ext://spring-cloud-k8s-discoveryserver')
@@ -13,6 +14,7 @@ configmap = load_dynamic('ext://configmap')
 remote_debug = load_dynamic('ext://remote-debug')
 volumes = load_dynamic('ext://volumes')
 rabbitmq = load_dynamic('ext://rabbitmq')
+configwatcher = load_dynamic('ext://spring-cloud-k8s-configwatcher')
 
 def configmap_create(name, namespace="", from_file=None, watch=True, from_env_file=None):
 	return configmap['configmap_create'](name, namespace, from_file, watch, from_env_file)
@@ -52,3 +54,6 @@ def create_rabbitmq_resource():
 
 def add_rabbitmq_service_binding(yaml_stream):
 	return rabbitmq['add_rabbitmq_service_binding'](yaml_stream)
+
+def config_watcher_deployment():
+	return configwatcher['config_watcher_deployment']()
