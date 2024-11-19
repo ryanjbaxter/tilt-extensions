@@ -2,7 +2,7 @@ load('ext://configmap', 'configmap_create')
 # This gets the directory where the extension is located locally
 home = os.getcwd()
 def config_watcher_deployment(kubernetesConfigWatcherYamlPath):
-	objects=['spring-cloud-kubernetes-configuration-watcher:ServiceAccount', 'spring-cloud-kubernetes-configwatcher\\:view:RoleBinding:default', 'namespace-reader-configwatcher:Role']
+	objects=['spring-cloud-kubernetes-configuration-watcher:ServiceAccount', 'spring-cloud-kubernetes-configuration-watcher:ConfigMap:default", "spring-cloud-kubernetes-configuration-watcher:ServiceAccount:default", "spring-cloud-kubernetes-configuration-watcher\\:view:RoleBinding', 'namespace-reader-configwatcher:Role']
 	if kubernetesConfigWatcherYamlPath:
         	configmap_create('spring-cloud-kubernetes-configuration-watcher', from_file=['application.yaml=' + kubernetesConfigWatcherYamlPath])
         	objects.append('spring-cloud-kubernetes-configuration-watcher:ConfigMap')
